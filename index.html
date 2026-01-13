@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Birthday Gift 💖</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<audio id="music">
+    <source src="lagu.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+    <div class="balloon b1"></div>
+    <div class="balloon b2"></div>
+    <div class="balloon b3"></div>
+
+    <div class="cat left">🐱</div>
+    <div class="cat right">🐱</div>
+
+    <h1>🎉 Happy Birthday 🎂</h1>
+    <h2>Today is ur day 💕</h2>
+
+    <p>
+        ✨May your life always be filled with laughter, sincere love, and fulfilled dreams. ✨
+    </p>
+
+    <button class="open-btn" onclick="openLetter(), playGift()">💌 Buka Surat</button>
+
+    <div id="letterBox" class="letter hidden">
+    <div class="letter-content">
+        <div class="music-visual" id="visualizer">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+</div>
+        <h2>✉️Birthday letter✉️</h2>
+        <p id="letterText"></p>
+        <button onclick="closeLetter()">Tutup</button>
+    </div>
+</div>
+</div>
+
+<script>
+function playGift() {
+    document.getElementById("gift").classList.remove("hidden");
+    document.getElementById("music").play();
+    createConfetti();
+}
+
+function createConfetti() {
+    for (let i = 0; i < 40; i++) {
+        let confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 5000);
+    }
+}
+const text = `
+🐱Happiest birthday Partner Nyontek🐱
+
+✨I hope hari-harimu selalu dipenuhi tawa,
+hal-hal kecil yang bikin bahagia,
+dan mimpi yang perlahan jadi nyata ✨
+
+Kindly reminder, u are valued n truly loved,
+even on the days u forget it.
+Just so u know ur presence brings light,
+n meaning to the people around u in ways
+u may not always see.
+U dont need to be perfect all the time, 
+ur already amazing!🐱
+
+No matter how busy you are,
+don't forget to rest well, eat well,
+and love yourself :)
+`;
+
+let i = 0;
+let typingSpeed = 40;
+
+function openLetter() {
+    document.getElementById("letterBox").classList.remove("hidden");
+    document.getElementById("letterText").innerHTML = "";
+    i = 0;
+    audio.play();
+    startVisualizer();
+    typeWriter();
+}
+
+function typeWriter() {
+    if (i < text.length) {
+        document.getElementById("letterText").innerHTML +=
+            text.charAt(i) === "\n" ? "<br>" : text.charAt(i);
+        i++;
+        setTimeout(typeWriter, typingSpeed);
+    }
+}
+
+function closeLetter() {
+    document.getElementById("letterBox").classList.add("hidden");
+}
+
+const audio = document.getElementById("music");
+const visual = document.getElementById("visualizer");
+const bars = document.querySelectorAll(".music-visual span");
+
+function startVisualizer() {
+    visual.style.opacity = 1;
+    bars.forEach(bar => bar.style.animationPlayState = "running");
+}
+
+audio.addEventListener("pause", stopVisualizer);
+audio.addEventListener("ended", stopVisualizer);
+
+function stopVisualizer() {
+    bars.forEach(bar => bar.style.animationPlayState = "paused");
+}
+</script>
+
+</body>
+</html>
